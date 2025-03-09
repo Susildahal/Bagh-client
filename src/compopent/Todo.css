@@ -1,0 +1,16 @@
+.contaner{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    font-size:30px;
+    margin-top: 2%;
+
+    
+    color: aqua;
+    &:hover{
+        color: blue;
+    }
+}

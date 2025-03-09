@@ -1,0 +1,97 @@
+/* Registration.module.css */
+
+/* Form container style */
+.formContainer {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Title style */
+.title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #f2994a;
+    outline: none;
+}
+
+/* Wrapper for password input and show button */
+.passwordContainer {
+    position: relative;
+    width: 100%;
+}
+
+/* Show button style inside the input box */
+.showButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f2994a;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.showButton:hover {
+    text-decoration: underline;
+}
+
+/* Submit and login button styles */
+.submitButton,
+.loginButton {
+    background-color: #f2994a;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton:hover,
+.loginButton:hover {
+    background-color: #d27d3e;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .formContainer {
+        padding: 15px;
+        width: 90%;
+    }
+    
+    .title {
+        font-size: 1.5em;
+    }
+    
+    .submitButton,
+    .loginButton {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+}
+
