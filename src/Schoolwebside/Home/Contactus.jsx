@@ -1,6 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -30,10 +33,23 @@ const Contactus = () => {
         .required("Message is required")
         .min(5, "Message must be at least 5 characters"),
     }),
-    onSubmit:(values) => {
-      console.log(values);
+    onSubmit:async(values,{resetForm}) => {
+      try {
+         const response =await axios.post(`${process.env.REACT_APP_API_BASE_URL}
+/api/notic/saveNotic`,values)
+         toast.success(response.data.msg)
+         resetForm()
+      } catch (error) {
+        if (error.response && error.response.status === 429) {
+          // Rate limit hit
+          toast.error(error.response?.data?.msg||"You are doing too much request please try again next day" ) ;
+      } else{
+        toast.error("Something error happen")
+      }
+    }
     },
   });
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  p-6">
@@ -132,7 +148,10 @@ const Contactus = () => {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
     </div>
+
+ 
   );
 };
 

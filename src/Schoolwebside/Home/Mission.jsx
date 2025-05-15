@@ -17,7 +17,7 @@ const Mission = () => {
   const rotateText = useTransform(scrollYProgress, [0, 1], [0, 15]);
 
   return (
-    <div ref={containerRef} className="relative h-[100vh] bg-gray-100 overflow-x-hidden">
+    <div ref={containerRef} className="relative h-[200vh] bg-gray-100 overflow-x-hidden">
       {/* Progress Bar */}
       <motion.div
         style={{ width: progressWidth }}
@@ -27,7 +27,7 @@ const Mission = () => {
       {/* Background Layer */}
       <motion.div
         style={{ y: yBg }}
-        className="absolute h-[100vw] w-auto bg-red-400 bg-cover bg-center"
+        className="absolute h-[150vw] w-auto bg-red-400 bg-cover bg-center"
       />
 
       {/* Sticky Content Section */}

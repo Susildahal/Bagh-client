@@ -5,32 +5,39 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from 'react-router-dom';
-import Home from './Home';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+
+
 
 
 const SocialInsert = () => {
     const date = new Date().toISOString().split("T")[0];
     const [view, setview] = useState(true);
+    const Navigate =useNavigate()
     
     const initialValues = {
         type: "",
-        id: "",
+        userid: "",
         password: "",
         date: date,
         info: '',
+        updatedat:""
     };
 
     const validationSchema = Yup.object({
         type: Yup.string().required("Account type is required"),
-        id: Yup.string().required("ID is required"),
-        password: Yup.string().required("Password is required")
+        userid: Yup.string().required("ID is required"),
+        password: Yup.string().required("Password is required"),
+        date:Yup.string(),
+        info:Yup.string(),
+         updatedat:Yup.string()
     });
 
     const onSubmit = async (values) => {
         try {
-            const response = await axios.post("", values);
+            const response = await axios.post("http://localhost:4000/Personal", values);
             toast.success(response.data.msg || 'Data saved successfully');
+            Navigate('/Social')
         } catch (error) {
             toast.error(error.response?.data?.msg || "An error occurred");
         }
@@ -42,7 +49,7 @@ const SocialInsert = () => {
 
     return (
         <>
-        <Home/>
+    
          <div className="max-w-md mx-auto p-8 bg-white rounded-xl shadow-lg ">
             <div className='text-2xl   font-bold text-gray-800 mb-6 text-center'> <Link to="/social"> <img src="../image/back.png"  
         alt="logo"
@@ -68,23 +75,23 @@ const SocialInsert = () => {
                                 name="type"
                                 type="text"
                                 placeholder="e.g., Facebook, Gmail"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
                             <ErrorMessage name="type" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
                         {/* ID Field */}
                         <div>
-                            <label htmlFor="id" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="userid" className="block text-sm font-medium text-gray-700 mb-2">
                                 Account ID/Email
                             </label>
                             <Field
-                                name="id"
+                                name="userid"
                                 type="text"
                                 placeholder="Enter your account ID"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             />
-                            <ErrorMessage name="id" component="div" className="text-red-500 text-sm mt-1" />
+                            <ErrorMessage name="userid" component="div" className="text-red-500 text-sm mt-1" />
                         </div>
 
                         {/* Password Field */}
@@ -97,7 +104,7 @@ const SocialInsert = () => {
                                     name="password"
                                     type={view ? "password" : "text"}
                                     placeholder="Enter your password"
-                                    className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 pr-12  text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                 />
                                 <button
                                     type="button"
@@ -119,7 +126,7 @@ const SocialInsert = () => {
                                 name="date"
                                 type="text"
                                 readOnly
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                                className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
                             />
                         </div>
 
@@ -132,7 +139,7 @@ const SocialInsert = () => {
                                 name="info"
                                 as="textarea"
                                 placeholder="Add any additional notes"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24"
+                                className="w-full px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-24"
                             />
                             <ErrorMessage name="info" component="div" className="text-red-500 text-sm mt-1" />
                         </div>

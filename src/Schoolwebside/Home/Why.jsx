@@ -18,11 +18,11 @@ const Why = () => {
         <motion.h1  initial={{x:-300  ,opacity:0}} whileInView={{x:0,opacity:1}} transition={{ duration:0.5}} whileHover={{x:10}} className="text-3xl font-bold">Why Bagh Bhairav</motion.h1 >
         <h3 className="px-4 lg:px-40 text-center mt-4   text-sm lg:text-2xl">
           Shree Bagh Bhairav Technical Secondary School is a renowned institution in Nepal, 
-          dedicated to providing quality <br></br> education with a strong technical foundation.
-          The school consistently achieves outstanding<br></br> academic results, preparing students 
-          for both higher education and skilled careers.<br></br>  With a unique blend of traditional 
-          values and modern educational approaches,<br></br> it equips students with the knowledge and 
-          skills needed to <br></br>excel in an increasingly competitive world.
+          dedicated to providing quality  education with a strong technical foundation.
+          The school consistently achieves outstanding academic results, preparing students 
+          for both higher education and skilled careers. With a unique blend of traditional 
+          values and modern educational approaches, it equips students with the knowledge and 
+          skills needed to excel in an increasingly competitive world.
         </h3>
       </div>
 
@@ -49,7 +49,7 @@ const Why = () => {
               
               />
             </motion.div>
-            <p className="text-red-500 text-lg font-semibold mt-3">{image.text}</p>
+            <p className="text-blue-500 text-lg font-semibold mt-3">{image.text}</p>
           </div>
         ))}
       </div>

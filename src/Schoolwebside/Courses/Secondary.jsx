@@ -8,7 +8,7 @@ const Secondary = () => {
             animate={{ opacity: 1,  translateX:"0"  }}
             exit={{ opacity: 0, y: -20  , translateX:"-100%" }}
             transition={{ duration: 1.54 }}
-            className="lg:h-[94.5vh] h-auto  mt-[-60px] bg-slate-700 w-[100vw] text-white"
+            className=" h-auto  mt-[-60px] bg-slate-700 w-[100vw] text-white"
         >
             <main className="lg:ml-72 ml-5 mt-20 lg:mt-28">
                 <motion.h1
@@ -39,7 +39,7 @@ const Secondary = () => {
                     <div className="grid lg:grid-cols-2 text-white mt-8 gap-20 grid-cols-1">
                         {/* Left Section (Text) */}
                         <motion.div
-                            className="text-center text-lg md:text-2xl px-5"
+                            className="text-left text-lg md:text-xl px-5"
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 1 }}

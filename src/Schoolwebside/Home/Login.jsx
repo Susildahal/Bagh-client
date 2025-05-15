@@ -1,162 +1,116 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
-  const [server, setServer] = useState("");
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      age: "",
+      id: "",
+      password: ""
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-      email: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Confirm password is required"),
-      age: Yup.number()
-        .typeError("Age must be a number")
-        .required("Age is required")
-        .min(18, "Age must be at least 18")
-        .max(100, "Age must be below 100"),
+      id: Yup.string().email("Invalid id format").required("Email is required"),
+      password: Yup.string().required("Password is required")
     }),
-    onSubmit: async (values) => {
-      console.log("Form data", values);
+    onSubmit: async (values, { setSubmitting }) => {
       try {
-        const response = await axios.post("http://localhost:4000/users", values);
-        setServer(response.data.message);
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/api/user/login
+`, values
+        );
+        navigate("/Loginotp", {state: {email:values.id }});
+        toast.success(response.data.msg || "Login successful");
+        
       } catch (error) {
-        // Check if the error is from response
-        if (error.response) {
-          setServer(error.response.data.message || "An error occurred");
-        } else {
-          setServer("An error occurred while connecting to the server.");
+        if(error.response && error.response.status === 429) {
+          // Rate limit hit
+          toast.error(error.response?.data?.msg || "You are doing too much  wrong request please try again next day");
+        } else{
+          toast.error(error.response?.data?.msg || "Something went wrong");
         }
+      } finally {
+        setSubmitting(false);
       }
     },
   });
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-red-200 via-sky-300 to-amber-300 ">
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-4 p-4 bg-gray-100 rounded-lg w-full max-w-lg"
+        className="w-full max-w-md p-6 bg-slate-100 text-black shadow-lg rounded-lg"
       >
-        {/* Name Field */}
-        <div>
-          <label htmlFor="name" className="block">
-            Name
-          </label>
+        <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+
+        {/* id Field */}
+        <div className="mb-4">
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formik.values.name}
+            name="id"
+            placeholder="Enter your Email"
+            className="border border-gray-300 rounded-lg px-4 py-2 w-full"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="border-2 border-gray-300 p-2 rounded w-full"
+            value={formik.values.id}
           />
-          {formik.touched.name && formik.errors.name ? (
-            <div className="text-red-500">{formik.errors.name}</div>
-          ) : null}
+          {formik.touched.id && formik.errors.id && (
+            <p className="text-red-500 text-sm mt-1">{formik.errors.id}</p>
+          )}
         </div>
 
-        {/* Email Field */}
-        <div>
-          <label htmlFor="email" className="block">
-            Email
-          </label>
+        {/* Password Field with Eye Toggle */}
+        <div className="relative mb-2">
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="border-2 border-gray-300 p-2 rounded w-full"
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="text-red-500">{formik.errors.email}</div>
-          ) : null}
-        </div>
-
-        {/* Password Field */}
-        <div>
-          <label htmlFor="password" className="block">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
+            type={showPassword ? "text" : "password"}
             name="password"
+            placeholder="Enter your password"
+            className="border border-gray-300 rounded-lg px-4 py-2 w-full"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="border-2 border-gray-300 p-2 rounded w-full"
           />
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-red-500">{formik.errors.password}</div>
-          ) : null}
+          <div
+            className="absolute right-3 top-2.5 cursor-pointer text-gray-500"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </div>
+          {formik.touched.password && formik.errors.password && (
+            <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
+          )}
         </div>
 
-        {/* Confirm Password Field */}
-        <div>
-          <label htmlFor="confirmPassword" className="block">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="border-2 border-gray-300 p-2 rounded w-full"
-          />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-            <div className="text-red-500">{formik.errors.confirmPassword}</div>
-          ) : null}
-        </div>
-
-        {/* Age Field */}
-        <div>
-          <label htmlFor="age" className="block">
-            Age
-          </label>
-          <input
-            type="number"
-            id="age"
-            name="age"
-            value={formik.values.age}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="border-2 border-gray-300 p-2 rounded w-full"
-          />
-          {formik.touched.age && formik.errors.age ? (
-            <div className="text-red-500">{formik.errors.age}</div>
-          ) : null}
+        {/* Forgot Password Link */}
+        <div className="text-right mb-4">
+          <Link
+            to="/CheckEmail"
+            className="text-blue-600 hover:underline text-sm"
+          >
+            Forgot Password?
+          </Link>
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded mt-4"
-        >
-          Submit
-        </button>
+        <div className="text-center">
+          <button
+            type="submit"
+            disabled={formik.isSubmitting}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-blue-600 transition"
+          >
+            {formik.isSubmitting ? "Logging in..." : "Login"}
+          </button>
+        </div>
       </form>
-      {server && <p>{server}</p>}
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

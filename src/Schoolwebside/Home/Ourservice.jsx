@@ -1,54 +1,70 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React from "react";
+import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+
+const services = [
+  "Good Reading Environment",
+  "Experienced and Supportive Teachers",
+  "Regular Revision Classes",
+  "Access to Computer Labs",
+  "Clean and Safe School Premises",
+  "Organized Study Materials",
+  "Empowerment to Learn Something New",
+];
 
 const Ourservice = () => {
   return (
-    <div>
-       <div className=' h-auto   '>
-          <motion.h1
-           className='  lg:text-4xl text-3xl text-center   pt-10 lg:pt-32'
-           initial={{y:'-100%' ,opacity:0 ,scale:0}}
-           whileInView={{y:0,opacity:1,scale:1}}
-     transition={{duration:2 ,ease:'easeInOut' }}
-           > Our Services  </motion.h1>
-        <div className='grid  gap-14  pt-4 lg:pt-9 grid-cols-1 lg:grid-cols-2'>    
-<img 
-
-src='../image/1.jpg'
- alt='image'
-  className=' px-2   lg:mb-20 lg:pl-4 h-[70vh] [border-radius:62%_38%_68%_32%_/_36%_60%_40%_64%]  '/>
-     
-        <div>
-            <h1 className=' text-3xl  px-5  mb-5 '>Building quality lives and strong culture through...</h1>
-      <motion.ul 
-      initial={{x:'-50%' ,opacity:0 ,scale:0.5}}
-      whileInView={{x:0 ,opacity:1,scale:1}}
-transition={{duration:2,ease:'easeInOut' }}
-      className='  flex  mb-20  mt-3 text-left text-2xl lg:text-4xl flex-col lg:gap-6 gap:3  pt-5'
+    <div className="min-h-screen  py-10 px-5 lg:px-20">
+      {/* Header */}
+      <motion.h1
+        className="text-3xl lg:text-5xl font-bold text-center mb-12 text-white"
+        initial={{ y: -50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        < li 
-     
+        Our Services
+      </motion.h1>
 
-        >   Good Reading Environment</li>
-        <li >Experienced and Supportive Teachers</li>
-        <li>Regular Revision Classes</li>
-        <li>Access to Computer Labs</li>
-        <li>Clean and Safe School Premises</li>
-        <li>Organized Study Materials</li>
-        <li>Empowerment to learn something new </li>
-        </motion.ul>
+      {/* Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Image */}
+        <motion.img
+          src="/image/1.jpg"
+          alt="Our Services"
+          className="w-full h-[70vh] object-fill rounded-3xl shadow-xl"
+          initial={{ x: "-100%", opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
 
+        {/* Text */}
+        <motion.div
+          initial={{ x: 10, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h2 className="text-2xl lg:text-3xl font-semibold  mb-5">
+            We are committed to providing:
+          </h2>
+
+          <ul className="space-y-3 text-lg lg:text-2xl">
+            {services.map((item, index) => (
+              <motion.li
+                key={index}
+                className="flex items-start gap-3"
+                whileHover={{ scale: 1.02 ,color: "#3b82f6" }} // Tailwind blue-500
+                transition={{ duration: 0.3 }}
+              >
+                <CheckCircle className="text-blue-500 mt-1" size={22} />
+                {item}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
       
-
-
-
-
-
-        </div>
     </div>
-    </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Ourservice
+export default Ourservice;

@@ -65,10 +65,10 @@ const Insert = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-red-200 via-blue-300 to-slate-300 text-black h-screen w-full flex justify-center items-center">
+    <div className="bg-gradient-to-r pt-20 from-red-200 via-blue-300 to-slate-300 text-black  w-full flex justify-center items-center">
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         {({ values }) => (
-          <Form className="flex flex-col gap-4 p-5 border-[6px] bg-gradient-to-r from-slate-200 via-aqua-400 to-purple-300 border-red-400 rounded-lg lg:w-1/3 w-[90vw]">
+          <Form className="flex flex-col gap-4 p-5  bg-gradient-to-r from-slate-200 via-aqua-400 to-purple-300  rounded-lg lg:w-1/3 w-[90vw]">
             <div className="flex justify-center items-center">
               <button className="bg-amber-600 p-4 rounded-xl hover:bg-amber-300 text-black text-xl">
                 <Link to="/tododata">View Todo List</Link>
@@ -143,7 +143,7 @@ const Insert = () => {
             )}
 
             <div className="flex justify-center items-center">
-              <button type="submit" className="bg-blue-500 text-black text-xl p-3 px-6 rounded-xl hover:bg-blue-200">
+              <button type="submit" className="bg-blue-500 mb-16 text-black text-xl p-3 px-6 rounded-xl hover:bg-blue-200">
                 Submit
               </button>
             </div>

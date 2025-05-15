@@ -50,7 +50,7 @@ const Introduction = () => {
             animate={{ color: colorState }}
             whileInView={{ color: "white", opacity: 1 }}
             onViewportLeave={() => setColorState("white")}
-            transition={{ duration: 3, delay: 1 }}
+            transition={{ duration:1.5,}}
           >
             Our mission is to equip every student with the technical knowledge
             and competencies required to excel in the modern workforce.
@@ -70,11 +70,11 @@ const Introduction = () => {
             <motion.div
               className="mt-4  b text-back "
               initial={{ opacity: 0, scale:0  }}
-              whileInView={{ opacity: 2,scale:1 }}
+              whileInView={{ opacity: 1,scale:1 }}
               exit={{ opacity: 0}}
 
 
-              transition={{ duration: 1, delay:0.5}}
+              transition={{ duration:.05}}
              
             >
               We emphasize a curriculum that integrates Science, Technology,
